@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -78,5 +80,15 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     	if(cinemas.containsKey(name)) return cinemas.get(name);
     	throw new CinemaPersistenceException("No existe el cinema "+name);
     }
+
+	@Override
+	public Set<Cinema> getAllCinemas() {
+		Set<Cinema> cs=new TreeSet<Cinema>();
+		for(Cinema c: cinemas.values()) {
+			cs.add(c);
+		}
+		return cs;
+		
+	}
 
 }

@@ -10,6 +10,8 @@ import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +32,14 @@ public class CinemaServices {
     	this.cps=cps;
     }
     
-    public void addNewCinema(Cinema c){
+    public void addNewCinema(Cinema c) throws CinemaPersistenceException{
+    	cps.saveCinema(c);
         
     }
     
     public Set<Cinema> getAllCinemas(){
-        return null;
+    	return cps.getAllCinemas();
+        
     }
     
     /**
