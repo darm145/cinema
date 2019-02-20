@@ -11,18 +11,33 @@ import edu.eci.arsw.cinema.model.Movie;
 import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
+import edu.eci.cinema.filter.Filter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author cristian
  */
+
 public class InMemoryCinemaPersistence implements CinemaPersitence{
+	 @Autowired
+	 Filter fil=null;
+	 public void setFil(Filter fil) {
+		 this.fil=fil;
+	 }
+	 public Filter getFil() {
+		 return fil;
+	 }
     
     private final Map<String,Cinema> cinemas=new HashMap<>();
 
@@ -32,8 +47,10 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
         List<CinemaFunction> functions= new ArrayList<>();
         CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate);
         CinemaFunction funct2 = new CinemaFunction(new Movie("The Night","Horror"),functionDate);
+        CinemaFunction funct3 = new CinemaFunction(new Movie("SuperHeroes Movie2","Action"),functionDate);
         functions.add(funct1);
         functions.add(funct2);
+        functions.add(funct3);
         Cinema c=new Cinema("cinemaX",functions);
         cinemas.put("cinemaX", c);
     }    
@@ -83,12 +100,15 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 
 	@Override
 	public Set<Cinema> getAllCinemas() {
-		Set<Cinema> cs=new TreeSet<Cinema>();
+		Set<Cinema> cs=new HashSet<Cinema>();
 		for(Cinema c: cinemas.values()) {
 			cs.add(c);
 		}
 		return cs;
 		
+	}
+	public List<Movie> filtrar(String cinema,String date,String category){
+		return fil.filter(this, cinema, date, category);
 	}
 
 }
