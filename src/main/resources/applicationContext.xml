@@ -15,7 +15,7 @@
     <bean id="cinemaServices" class="edu.eci.arsw.cinema.services.CinemaServices">
     	<property name="cps" ref="InMemoryC"></property>
     </bean>
-    <bean id="Filter" class="edu.eci.arsw.cinema.filter.impl.GenderFilter">
+    <bean id="Filter" class="edu.eci.arsw.cinema.filter.impl.AvailabilityFilter">
     </bean>
     
 
